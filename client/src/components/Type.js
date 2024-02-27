@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import Products from "./Products";
 import Options from "./Options";
@@ -13,6 +13,7 @@ const Type = ({ orderType }) => {
   useEffect(() => {
     loadItems(orderType);
   }, [orderType]);
+
   const loadItems = async (orderType) => {
     try {
       const response = await axios.get(`http://localhost:4000/${orderType}`);
@@ -21,7 +22,9 @@ const Type = ({ orderType }) => {
       setError(true);
     }
   };
+
   const ItemComponent = orderType === "products" ? Products : Options;
+
   const optionItems = items.map((item) => (
     <ItemComponent
       key={item.name}
@@ -32,9 +35,11 @@ const Type = ({ orderType }) => {
       }
     />
   ));
+
   if (error) {
     return <ErrorBanner message="에러가 발생했습니다." />;
   }
+
   return (
     <div>
       <h2>주문 종류</h2>

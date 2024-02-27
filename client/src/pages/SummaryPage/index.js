@@ -1,5 +1,6 @@
-import React, { useState, useContext } from "react";
+import React, { useContext, useState } from "react";
 import { OrderContext } from "../../context/OrderContext";
+import Step from "../../components/Step";
 
 const SummaryPage = ({ setStep }) => {
   const [checked, setChecked] = useState(false);
@@ -12,10 +13,10 @@ const SummaryPage = ({ setStep }) => {
     </li>
   ));
 
-  const hasOptions = orderDetails.options.size > 0;
+  const hesOptions = orderDetails.options.size > 0;
   let optionsDisplay = null;
 
-  if (hasOptions) {
+  if (hesOptions) {
     const optionsArray = Array.from(orderDetails.options.keys());
     const optionList = optionsArray.map((key) => <li key={key}>{key}</li>);
     optionsDisplay = (
@@ -33,21 +34,24 @@ const SummaryPage = ({ setStep }) => {
 
   return (
     <div>
+      <Step step={1} />
       <h1>주문 확인</h1>
-      <h2>여행 상품: {orderDetails.totals.products} </h2>
+      <h2>여행 상품: {orderDetails.totals.products}</h2>
       <ul>{productList}</ul>
+
       {optionsDisplay}
+
       <form onSubmit={handleSubmit}>
         <input
           type="checkbox"
           checked={checked}
           id="confirm-checkbox"
-          onChange={(e) => setChecked(e.target.checked)}
+          onChange={(e) => setChecked(e.target.value)}
         />{" "}
         <label htmlFor="confirm-checkbox">주문하려는 것을 확인하셨나요?</label>
         <br />
-        <button disabled={!checked} type="submit">
-          주문 확인
+        <button type="submit" disabled={!checked}>
+          주문확인
         </button>
       </form>
     </div>

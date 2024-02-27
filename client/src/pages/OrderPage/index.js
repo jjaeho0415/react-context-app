@@ -1,11 +1,14 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import Type from "../../components/Type";
 import { OrderContext } from "../../context/OrderContext";
+import Step from "../../components/Step";
 
 const OrderPage = ({ setStep }) => {
   const [orderData] = useContext(OrderContext);
+
   return (
     <div>
+      <Step step={0} />
       <h1>Travel Products</h1>
       <div>
         <Type orderType="products" />
